@@ -8,17 +8,33 @@ const mainConfig = require('./webpack.main.config.js');
 const rendererConfig = require('./webpack.renderer.config.js');
 
 var runner = {
+    /**
+     * 热加载渲染进程
+     */
     startRenderer: function () {
         var promise = new Promise((resolve, reject) => {
+            // 设置该mode会将process.env.NODE_ENV 的值设为development,启用NamedChunksPlugin和NamedModulesPlugin
+            rendererConfig.mode = 'development';
+            rendererConfig.target = 'web';
+
+            // 配置并返回一个compiler对象
             var compiler = webpack(rendererConfig);
-            compiler.run((err, stats) => {
-                if (err || stats.hasErrors()) {
-                    var info = stats.toJson();
-                    console.error(info.errors);
-                }
-                console.log('startRenderer');
-                resolve('startRenderer');
+
+            // 执行打包，输出结果，热加载则不需要，相关模块将其结果保存在内存中
+            // compiler.run(); 
+            compiler.hooks.done.tap('done', stats => {
+                console.log('render compiled done');
             });
+
+            // 创建服务
+            var server = new WebpackDevServer(compiler, {
+                // 指定一个虚拟路径来让devServer服务器提供内容
+                contentBase: path.join(__dirname, "../"),
+                // 在浏览器中打开
+                open: true
+            });
+            server.listen(8181);
+
         });
         return promise;
     },
