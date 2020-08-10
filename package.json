@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node .electron-vue/dev-runner.js"
+    "dev": "node .electron-vue/dev.runner.js"
   },
   "author": "",
   "license": "ISC",

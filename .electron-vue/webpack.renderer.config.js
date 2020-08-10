@@ -64,7 +64,9 @@ let rendererConfig = {
         })
     ],
     node: {
+        // true: 输入文件(打包前)的目录名 false: 输出文件(打包后)的目录名 (不设默认为'/')
         __dirname: process.env.NODE_ENV !== 'production',
+        // true: 输入文件(打包前)的文件名 false: 输出文件(打包后)的文件名 (不设默认为'index.js')
         __filename: process.env.NODE_ENV !== 'production'
     },
     output: {
@@ -79,7 +81,8 @@ let rendererConfig = {
             '@root': path.resolve(__dirname, '..'),
             'vue$': 'vue/dist/vue.esm.js'
         },
-        extensions: ['.js', '.vue', '.json', '.css', '.node']
+        // 自动解析，引入文件不需要加以下后缀
+        extensions: ['.js', '.vue', '.json', '.css', 'scss']
     },
     // https://www.webpackjs.com/configuration/target/
     target: 'electron-renderer'
