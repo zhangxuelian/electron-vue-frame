@@ -1,5 +1,7 @@
 'use strict'
 
+process.env.NODE_ENV = 'development';
+
 const path = require('path');
 const { spawn } = require('child_process');
 const electron = require('electron');

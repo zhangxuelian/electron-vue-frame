@@ -3,7 +3,8 @@
     |-- package-lock.json
     |-- package.json
     |-- .electron-vue
-    |   |-- dev-runner.js
+    |   |-- dev.runner.js
+    |   |-- pack.builder.js
     |   |-- webpack.main.config.js
     |   |-- webpack.renderer.config.js
     |-- src

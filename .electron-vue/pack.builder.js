@@ -1,4 +1,8 @@
 
+'use strict'
+
+process.env.NODE_ENV = 'production';
+
 const del = require('del');
 const mainConfig = require('./webpack.main.config');
 const rendererConfig = require('./webpack.renderer.config');

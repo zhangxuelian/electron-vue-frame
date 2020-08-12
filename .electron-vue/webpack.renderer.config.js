@@ -59,27 +59,7 @@ let rendererConfig = {
         // 寻找模板注入并创建index.html到output目录下
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.resolve(__dirname, '../src/index.ejs'),
-            templateParameters(compilation, assets, options) {
-                return {
-                    compilation: compilation,
-                    webpack: compilation.getStats().toJson(),
-                    webpackConfig: compilation.options,
-                    htmlWebpackPlugin: {
-                        files: assets,
-                        options: options
-                    },
-                    process,
-                };
-            },
-            minify: {
-                collapseWhitespace: true,
-                removeAttributeQuotes: true,
-                removeComments: true
-            },
-            nodeModules: process.env.NODE_ENV !== 'production'
-                ? path.resolve(__dirname, '../node_modules')
-                : false
+            template: path.resolve(__dirname, '../src/index.html')
         })
     ],
     node: {
@@ -91,7 +71,8 @@ let rendererConfig = {
     output: {
         // [name]是entry对象的key值
         filename: '[name].js',
-        path: path.join(__dirname, '../dist/electron')
+        path: path.join(__dirname, '../dist/electron'),
+        publicPath: './'
     },
     resolve: {
         // 别名设置
