@@ -24,12 +24,11 @@ var runner = {
         var promise = new Promise((resolve, reject) => {
             // 设置该mode会将process.env.NODE_ENV 的值设为development,启用NamedChunksPlugin和NamedModulesPlugin
             rendererConfig.mode = 'development';
-            // rendererConfig.target = 'web';
 
             // 配置并返回一个compiler对象
             var compiler = webpack(rendererConfig);
 
-            // 执行打包，输出结果，热加载则不需要，相关模块将其结果保存在内存中
+            // 执行打包（webpack传入第二个参数回调，也会执行打包），输出结果，热加载则不需要，相关模块将其结果保存在内存中
             // compiler.run();
 
             // 监听编译过程(webpack-dev-server)
@@ -70,10 +69,6 @@ var runner = {
             var compiler = webpack(mainConfig);
 
             // 编译完成
-            /* compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
-                console.log('main process is compiling...');
-                done();
-            }); */
             compiler.hooks.done.tap('done', stats => {
                 console.log('main process compiled done.');
             });

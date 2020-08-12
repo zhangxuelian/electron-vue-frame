@@ -1,8 +1,12 @@
 'use strict'
 
 const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
 let mainWindow;
+const winURL = process.env.NODE_ENV === 'development'
+    ? `http://localhost:8181`
+    : `file://${__dirname}/index.html`
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
@@ -15,5 +19,5 @@ app.on('ready', () => {
         }
     });
     mainWindow.webContents.openDevTools();
-    mainWindow.loadURL('http://localhost:8181');
+    mainWindow.loadURL(winURL);
 });

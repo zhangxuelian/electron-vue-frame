@@ -2,15 +2,29 @@
   "name": "electron-vue-frame",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/electron/main.js",
   "scripts": {
-    "dev": "node .electron-vue/dev.runner.js"
+    "dev": "node .electron-vue/dev.runner.js",
+    "build": "node .electron-vue/pack.builder.js && electron-builder"
+  },
+  "build": {
+    "productName": "test",
+    "appId": "com.example.yourapp",
+    "files": [
+      "dist/electron/**/*" 
+    ],
+    "directories": {
+      "output": "build"
+    }
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^3.6.0",
+    "del": "^5.1.0",
     "electron": "^9.1.2",
+    "electron-builder": "^22.8.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "node-sass": "^4.14.1",
@@ -20,9 +34,7 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.1.0"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "vue": "^2.6.11"
