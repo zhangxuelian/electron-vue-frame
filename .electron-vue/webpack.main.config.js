@@ -7,6 +7,8 @@ let mainConfig = {
     entry: {
         main: path.join(__dirname, '../src/main/index.js')
     },
+    //这个模块包含原生 C代码，所以要在运行的时候再获取，而不是被webpack打包到bundle中
+    externals: ['ffi-napi'],
     node: {
         // true: 输入文件(打包前)的目录名 false: 输出文件(打包后)的目录名 (不设默认为'/')
         __dirname: process.env.NODE_ENV !== 'production',
@@ -15,6 +17,8 @@ let mainConfig = {
     },
     output: {
         filename: '[name].js',
+        // 入口起点的返回值将分配给 module.exports 对象,若不设，externals的对象无法使用
+        libraryTarget: 'commonjs2',
         path: path.join(__dirname, '../dist/electron')
     },
     plugins: [

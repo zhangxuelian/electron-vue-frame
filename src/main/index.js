@@ -1,7 +1,8 @@
 'use strict'
 
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const ffi = require("ffi-napi");
+const path = require("path");
 
 let mainWindow;
 
@@ -22,4 +23,26 @@ app.on('ready', () => {
     });
     mainWindow.webContents.openDevTools();
     mainWindow.loadURL(winURL);
+});
+
+var testdll = "";
+if (process.env.NODE_ENV !== "development") {
+    testdll = path.join(
+        process.cwd(),
+        "/resources/extraResources/test",
+        "ZXLTest64.dll"
+    );
+} else {
+    testdll = path.join(
+        process.cwd(),
+        "/extraResources/test",
+        "ZXLTest64.dll"
+    );
+}
+ipcMain.on('test-dll', (event, arg) => {
+    var ZXLTest64 = new ffi.Library(testdll, {
+        ZXLSDK_Init: ["int", ["int"]],
+    });
+    var result = ZXLTest64.ZXLSDK_Init(666);
+    event.reply('reply-test-dll', result);
 });

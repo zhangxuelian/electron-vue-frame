@@ -11,11 +11,17 @@
     "productName": "test",
     "appId": "com.example.yourapp",
     "files": [
-      "dist/electron/**/*" 
+      "dist/electron/**/*"
     ],
     "directories": {
       "output": "build"
-    }
+    },
+    "extraResources": [
+      {
+        "from": "./extraResources/",
+        "to": "extraResources"
+      }
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -37,6 +43,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "ffi-napi": "^3.0.1",
     "vue": "^2.6.11"
   }
 }
