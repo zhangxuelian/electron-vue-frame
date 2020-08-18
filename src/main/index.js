@@ -27,12 +27,14 @@ app.on('ready', () => {
 
 var testdll = "";
 if (process.env.NODE_ENV !== "development") {
+    // 生产环境dll路径
     testdll = path.join(
         process.cwd(),
         "/resources/extraResources/test",
         "ZXLTest64.dll"
     );
 } else {
+    // 开发环境dll路径
     testdll = path.join(
         process.cwd(),
         "/extraResources/test",
@@ -40,6 +42,8 @@ if (process.env.NODE_ENV !== "development") {
     );
 }
 ipcMain.on('test-dll', (event, arg) => {
+    // 查看xx.dll库的xxx.h文件，这里的ZXLSDK_Init为调用函数名，
+    // 对应的数组第一个对象是返回对象，第二个对象为传参对象数组，result为调用dll的返回结果
     var ZXLTest64 = new ffi.Library(testdll, {
         ZXLSDK_Init: ["int", ["int"]],
     });
