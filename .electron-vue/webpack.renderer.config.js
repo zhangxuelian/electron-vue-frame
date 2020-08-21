@@ -23,7 +23,6 @@ let rendererConfig = {
             test: /\.vue$/,
             use: ['vue-loader']
         },
-        // url-loader封装了file-loader,内置了file-loader,
         // 1.文件大小小于limit参数，url-loader将会把文件转为DataURL；2.文件大小大于limit，url-loader会调用file-loader进行处理，参数也会直接传给file-loader。
         {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
